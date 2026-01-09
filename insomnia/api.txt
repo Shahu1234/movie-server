@@ -1,0 +1,39 @@
+http://localhost:5000/api/user/register
+
+{
+	"name":"Shahjadi",
+	"username":"shahu1234",
+	"email":"shahajadi.232071110@smuct.ac.bd",
+	"password":"232071110",
+	"role":"admin"
+}
+
+
+http://localhost:5000/api/user/login
+
+{
+	"identifier":"Anik_071",
+	"password":"232071071"
+}
+
+
+http://localhost:5000/api/user/logout
+http://localhost:5000/api/user/profile
+
+--->auth->bearer token->token
+
+
+Delete http://localhost:5000/api/user/profile/
+--->auth->bearer token->token
+
+Update http://localhost:5000/api/user/profile
+{
+	"name":"user",
+	"username":"user01",
+	"email":"user.01@smuct.ac.bd",
+	"password":"232071000"
+}
+--->auth->bearer token->token
+
+http://localhost:5000/api/user/
+--->auth->bearer token->token
