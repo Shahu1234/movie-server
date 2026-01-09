@@ -24,12 +24,13 @@ const movieSchema = new mongoose.Schema({
         type: Number,
         min: 0,
         max: 10
-    },
-    cast: {
-        type: [String],
-        required: true
-    },
+    }
+    // ,cast: {
+    //     type: [String],
+    //     required: true
+    // },
 }, {
     timestamps:true
 });
+
 export default mongoose.model("Movie", movieSchema);
