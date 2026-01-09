@@ -1,0 +1,11 @@
+import express from "express";
+import { getAllMovies,movieDetails,createMovie,updateMovie,deleteMovie } from "../controllers/movie.controller.js";
+import { authenticate, authorizeAdmin, validate } from "../middleware/user.middleware.js";
+import { movieCreateSchema } from "../validators/movie.validator.js";
+const router = express.Router();
+router.get("/", getAllMovies);
+router.get("/:id", movieDetails);
+router.post("/", authenticate, authorizeAdmin, validate(movieCreateSchema), createMovie);
+router.put("/:id", authenticate, authorizeAdmin, validate(movieCreateSchema), updateMovie);
+router.delete("/:id", authenticate, authorizeAdmin, deleteMovie);
+export default router;
