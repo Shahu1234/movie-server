@@ -1,14 +1,22 @@
-import mongoose from "mongoose";
-import dotenv from "dotenv";
+import express from 'express'
+import dotenv from 'dotenv'
+import {connectDB} from './config/db.js'
+import cookieParser from 'cookie-parser'
+import userRoutes from './routers/user.router.js'
+const app=express()
+dotenv.config()
 
-dotenv.config();
+app.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-export const connectDB = async () => {
-  try {
-    await mongoose.connect(process.env.MONGO_URI);
-    console.log("Database connected");
-  } catch (error) {
-    console.log(error);
-    process.exit(1);
-  }
-};
+app.use('/api/user', userRoutes);
+
+const port=process.env.PORT||8000
+connectDB()
+app.listen(port,()=>{
+    console.log(`server is running at http://localhost:${port}`)
+})
+app.get('/',(req,res)=>{
+    res.send("Welcome to The movie server home page")
+})
