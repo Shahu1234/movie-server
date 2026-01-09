@@ -35,4 +35,12 @@ userSchema.pre('save',async function(){
 userSchema.methods.isPasswordValid= async function (enteredPassword){
     return await bcrypt.compare(enteredPassword,this.password);
 }
+userSchema.pre('findOneAndUpdate', async function() {
+  const update = this.getUpdate();
+  if (update.password) {
+    const salt = await bcrypt.genSalt(10);
+    update.password = await bcrypt.hash(update.password, salt);
+  }
+
 export default mongoose.model("User", userSchema);
+
