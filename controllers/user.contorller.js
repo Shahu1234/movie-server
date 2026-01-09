@@ -59,15 +59,15 @@ export const login=async(req,res)=>{
     try{
         const {identifier,password}=req.body;
         const user= await User.findOne({
-            $or :[ {email:identifier.toLowerCase()},{username:identifier.toLowerCase()} ]
+            $or :[ {email:identifier.toLowerCase()},{username:identifier} ]
         });
         if(!user){
             return res.status(404).json({
                 success:false,
                 message:"Invalid Username or Email"});    
         }
-        const isVaid=await user.isPasswordValid(password);
-        if(!isVaid){
+        const isValid=await user.isPasswordValid(password);
+        if(!isValid){
         return res.status(401).json({
             success:false,
             message:"Invalid Password"
@@ -190,4 +190,5 @@ export const getAllUsers=async (req,res)=>{
             error:error.message
         });
     }
+
 }
