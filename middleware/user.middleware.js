@@ -12,7 +12,7 @@ export const authenticate= async (req,res,next)=>{
             });
         }
         const decoded = jwt.verify(token,process.env.JWT_SECRET);
-        req.user = await User.findById(decoded.id).select('-password');
+        req.user = await User.findById(decoded.userid).select('-password');
         if(!req.user){
             return res.status(401).json({
                 success:false,
@@ -48,11 +48,9 @@ export const validate=(schema)=>{
             return res.status(400).json({
                 success:false,
                 message:"Validation Error",
-                errors: error.errors.map(e => ({
-                field: e.path.join('.'),
-                message: e.message
-        }))
+                errors: error.message
             });
         }
     }
+
 }
